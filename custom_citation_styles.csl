@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never">
+  <info>
+    <title>Titulo de citação personalizada</title>
+    <title-short>PERSOCtE</title-short>
+    <id>http://www.zotero.org/styles/contributions-to-entomology-=-beitrage-zur-entomologie</id>
+    <link href="http://www.zotero.org/styles/contributions-to-entomology-=-beitrage-zur-entomologie" rel="self"/>
+    <link href="http://www.zotero.org/styles/vancouver" rel="self"/>
+    <link href="http://www.nlm.nih.gov/bsd/uniform_requirements.html" rel="documentation"/>
+    <category citation-format="numeric"/>
+    <category field="medicine"/>
+    <summary>Vancouver style as outlined by International Committee of Medical Journal Editors Uniform Requirements for Manuscripts Submitted to Biomedical Journals: Sample References</summary>
+    <eissn> 2511-6428</eissn>
+    <updated>2018-02-15T09:43:38+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
+  </info>
+  <locale xml:lang="pt">
+    <date form="text" delimiter=" ">
+      <date-part name="year"/>
+      <date-part name="month" form="short" strip-periods="true"/>
+      <date-part name="day" />
+    </date>
+  </locale>
+  <macro name="author">
+    <!-- INFORMAÇÕES DE AUTORES Bacha D, DE -->
+    <names variable="author">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+      <label form="long" prefix=", "/>
+      <substitute>
+        <names variable="editor"/>
+      </substitute>
+    </names>
+  </macro>
+  <macro name="editor">
+    <names variable="editor" suffix=".">
+      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
+      <label form="long" prefix=", "/>
+    </names>
+  </macro>
+  <macro name="access">
+    <!--INFORMAÇÕES DA URL | Disponível em: http://localhost:8081/ciencia/article/view/7-->
+    <choose>
+      <if variable="URL">
+        <group delimiter=": ">
+          <text term="available at" text-case="capitalize-first"/>
+          <text variable="URL"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <macro name="accessed-date">
+    <!--INFORMAÇÕES DOS PARENTESES | [citado 7º de outubro de 2022]-->
+    <choose>
+      <if variable="URL">
+        <group prefix="[" suffix="]" delimiter=" " style="">
+          <text term="cited" text-case="capitalize-first"/>
+          <date variable="accessed" form="text"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <macro name="container-title">
+    <!-- NOME DA REVISTA | Ciencia [nternet]. -->
+    <choose>
+      <if type="article-journal article-magazine chapter paper-conference article-newspaper review review-book entry-dictionary entry-encyclopedia" match="any">
+        <group suffix="." delimiter=" ">
+          <choose>
+            <if type="article-journal review review-book" match="any">
+              <text variable="container-title" form="short" text-case="uppercase" strip-periods="true"/>
+            </if>
+            <else>
+              <text variable="container-title" text-case="uppercase" strip-periods="true"/>
+            </else>
+          </choose>
+          <choose>
+            <if variable="URL">
+              <text term="internet" prefix="[" suffix="]" text-case="capitalize-first"/>
+            </if>
+          </choose>
+        </group>
+        <text macro="edition" prefix=" "/>
+      </if>
+      <!-- add event-name and event-place once they become available -->
+      <else-if type="bill legislation" match="any">
+        <group delimiter=", ">
+          <group delimiter=". ">
+            <text variable="container-title"/>
+            <group delimiter=" ">
+              <text term="section" form="short" text-case="uppercase"/>
+              <text variable="section"/>
+            </group>
+          </group>
+          <text variable="number"/>
+        </group>
+      </else-if>
+      <else-if type="speech">
+        <group delimiter=": " suffix=";">
+          <group delimiter=" ">
+            <text variable="genre" text-case="uppercase"/>
+            <text term="presented at"/>
+          </group>
+          <text variable="event"/>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter=", " suffix=".">
+          <choose>
+            <if variable="collection-title" match="none">
+              <group delimiter=" ">
+                <label variable="volume" form="short" text-case="uppercase"/>
+                <text variable="volume"/>
+              </group>
+            </if>
+          </choose>
+          <text variable="container-title"/>
+        </group>
+      </else>
+    </choose>
+  </macro>
+  <macro name="title">
+    <!--Titulo do artigo | Caso de dermatite...-->
+    <text variable="title"/>
+    <choose>
+      <if type="article-journal article-magazine chapter paper-conference article-newspaper review review-book entry-dictionary entry-encyclopedia" match="none">
+        <choose>
+          <if variable="URL">
+            <text term="internet" prefix=" [" suffix="]" text-case="capitalize-first"/>
+          </if>
+        </choose>
+        <text macro="edition" prefix=". "/>
+      </if>
+    </choose>
+    <choose>
+      <if type="thesis">
+        <text variable="genre" prefix=" [" suffix="]"/>
+      </if>
+    </choose>
+  </macro>
+  <macro name="date">
+    <!-- datas | 6º de outubro de 2022 [citado 7º de outubro de 2022]; -->
+    <choose>
+      <if type="article-journal article-magazine article-newspaper review review-book" match="any">
+        <group suffix=";" delimiter=" ">
+          <date variable="issued" form="text">
+            <date-part name="year"/>
+            <date-part name="month" form="short" strip-periods="true"/>
+          </date>
+          <text macro="accessed-date"/>
+        </group>
+      </if>
+    </choose>
+  </macro>
+  <macro name="journal-location">
+    <!-- 1(1) -->
+    <choose>
+      <if type="article-journal article-magazine review review-book" match="any">
+        <text variable="volume"/>
+        <text variable="issue" prefix="(" suffix=")"/>
+      </if>
+    </choose>
+  </macro>
+  <bibliography et-al-min="7" et-al-use-first="6" second-field-align="flush">
+    <layout>
+      <text variable="citation-number" suffix=". "/>
+      <group delimiter=". " suffix=". ">
+        <text macro="author"/>
+        <text macro="title"/>
+      </group>
+      <group delimiter=" " suffix=". ">
+        <group delimiter=": ">
+          <group delimiter=" ">
+            <text macro="editor"/>
+            <text macro="container-title"/>
+          </group>
+        </group>
+        <group>
+          <text macro="date"/>
+          <text macro="journal-location"/>
+        </group>
+      </group>
+      <text macro="access"/>
+    </layout>
+  </bibliography>
+</style>
